@@ -1,0 +1,11 @@
+name            = "terraform"
+cidr            = "10.0.0.0/16"
+azs             = ["us-east-1a", "us-east-1b"] 
+public_subnets  = ["10.0.0.0/18"]
+database_subnets = ["10.0.64.0/18", "10.0.128.0/18"]
+enable_nat_gateway = true
+create_database_subnet_route_table = true
+create_database_nat_gateway_route = true
+instance_type   = "t2.micro"
+ami             = "ami-0a8b4cd432b1c3063"
+key_name        = "MyUSE1KP"
