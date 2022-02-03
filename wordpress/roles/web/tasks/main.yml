@@ -1,0 +1,36 @@
+---
+# Playbook for Web Server
+
+- name: install Apache httpd server
+  yum:
+    name: 
+      - httpd
+      - php
+    state: latest
+
+# - name: download Remi Repository
+#   yum:
+#     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+#     state: present
+
+# - name: Install php 7.4
+#   ansible.builtin.shell: sudo amazon-linux-extras install php7.4
+
+# - name: Installing php mod
+#   yum:
+#     name:
+#       - mod_php
+#       - php-cli
+#       - php-gd
+#       - php-ldap
+#       - php-mysqlnd
+#       - php-mysqli
+#     state: latest
+
+- name: Install web role specific dependencies
+  yum: name=git state=installed
+
+- name: Start & Enable Apache Server to start on boot
+  service: name=httpd state=started enabled=yes
+
+# - include: copy_code.yml

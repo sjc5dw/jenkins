@@ -1,0 +1,31 @@
+- name: Download WordPress
+  get_url: url=https://wordpress.org/latest.tar.gz dest=/tmp/wordpress.tar.gz validate_certs=no
+
+- name: Extract WordPress
+  unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/html/ copy=no
+
+- name: Update default Apache site
+  lineinfile: 
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "# LoadModule foo_module modules/mod_foo.so"
+    line: "LoadModule php7_module modules/libphp7.so"
+  notify:
+    - restart apache
+
+- name: Enable php by updating the httpd conf file
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="(.)+DocumentRoot /var/www/html" line="DocumentRoot /var/www/html/wordpress"
+  notify:
+    - restart apache
+
+# - name: Copy sample config file
+#   command: cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php creates=/var/www/html/wp-config.php
+
+# - name: Update WordPress config file
+#   lineinfile:
+#     dest=/var/www/html/wordpress/wp-config.php
+#     regexp="{{ item.regexp }}"
+#     line="{{ item.line }}"
+#   with_items:
+#     - {'regexp': "define \\('DB_NAME', '(.)+'\\);", 'line': "define( 'DB_NAME', '{{dbname}}');"}
+#     - {'regexp': "define \\('DB_USER', '(.)+'\\);", 'line': "define( 'DB_USER', '{{dbuser}}');"}
+#     - {'regexp': "define \\('DB_PASSWORD', '(.)+'\\);", 'line': "define( 'DB_PASSWORD', '{{masterpassword}}');"}
