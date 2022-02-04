@@ -7,7 +7,7 @@ ansible_ssh_private_key=/vagrant/myuse1kp.pem
 
 
 [dbservers]
-10.0.66.77
+52.90.66.95
 
 [dbservers:vars]
 ansible_user=ec2-user
