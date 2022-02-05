@@ -13,8 +13,8 @@
 #     name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 #     state: present
 
- - name: Install php 7.4
-   ansible.builtin.shell: sudo amazon-linux-extras install php7.4
+- name: Install php 7.4
+  ansible.builtin.shell: sudo amazon-linux-extras install php7.4
 
 # - name: Installing php mod
 #   yum:
